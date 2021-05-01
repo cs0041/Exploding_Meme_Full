@@ -5,7 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Game extends Application{
-    boolean isHead;
+    public static boolean isHead;
     boolean isStart;
     boolean isJoin;
     boolean isCreate ;
