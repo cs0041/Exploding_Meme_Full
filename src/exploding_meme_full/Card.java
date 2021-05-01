@@ -55,7 +55,7 @@ public class Card extends Parent{
 
     private void setCardId(String cardName) {
         for (int i = 0; i < this.cardSet.length; i++) {
-            if (this.cardSet[i] == cardName) {
+            if ((this.cardSet[i]).equals(cardName)) {
                  this.cardId = i;
                  return;
             }

@@ -1,5 +1,7 @@
 package exploding_meme_full;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,28 +21,50 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-// import model.GameSubScene;
-// import model.InfoLabel;
 // import model.RenewButton;
 // import model.ShipPicker;
-// import model.SpaceRunnerButton;
+ import model.SpaceRunnerButton;
 // import model.SHIP;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 
 
 public class ViewManger {
 
-    private static final int HEIGHT = 768;
-    private static final int WIDTH =  1280 ;// 1366 768    768    1024  1280 768
+    private static final int HEIGHT = 1080;
+    private static final int WIDTH =  1920 ;// 1366 768    768    1024  1280 768
     private AnchorPane mainPane;
     private Scene mainScene;
     private Stage mainStage;
+
+
+     private GameSubScene helpSubScene;
+     private GameSubScene startSubScene;
+
+     private GameSubScene JoinSubScene;
+     private GameSubScene CreateSubScene;
+
+     private GameSubScene sceneToHide;
+
+     private TextField EnterName_create = new TextField();
+     private TextField EnterName_join = new TextField();
+     private TextField Enterpass_join = new TextField();
+
+    //List<ShipPicker> shipsList;
+  //  private SHIP choosenShip;
+
+
     private AnimationTimer TimerLoop;
     private GridPane gridPane1;
     private GridPane gridPane2;
 
     
-    public ViewManger() 
+    public ViewManger() throws FileNotFoundException 
     {
         mainPane = new AnchorPane();
 
@@ -52,11 +77,213 @@ public class ViewManger {
         createButtons();
         createLogo();
         createNameGame();
-        //createSubscens();
+        createSubscens();
         createGameLoop();
 
         
     }
+
+    private void showSubScene(GameSubScene subScene)
+    {
+        if(sceneToHide != null )
+        {
+            sceneToHide.moveSubScence();
+        }
+        if(subScene != sceneToHide)
+        {
+            subScene.moveSubScence();
+            sceneToHide = subScene;
+        }
+        else
+        {
+            sceneToHide = null;
+        }
+      
+    }
+
+
+    public void createSubscens() throws FileNotFoundException
+    {
+        helpSubScene = new GameSubScene();
+        mainPane.getChildren().add(helpSubScene);
+
+        JoinSubScene = new GameSubScene();
+        mainPane.getChildren().add(JoinSubScene);
+
+
+        create_CreateSubscene();
+        create_JoinSubscene();
+
+
+      //  createShipChooserSubScene();
+        
+     }
+
+
+     private void create_CreateSubscene()  throws FileNotFoundException
+    {
+        CreateSubScene = new GameSubScene();
+        mainPane.getChildren().add(CreateSubScene);
+
+         InfoLabel chooseShipLabel1 = new InfoLabel("START YOUR GAME");
+         chooseShipLabel1.setLayoutX(70);
+         chooseShipLabel1.setLayoutY(25);
+         CreateSubScene.getPane().getChildren().add(chooseShipLabel1);
+
+         
+         EnterName_create.setLayoutX(180);
+         EnterName_create.setLayoutY(150);
+         CreateSubScene.getPane().getChildren().add(EnterName_create);
+
+
+         CreateSubScene.getPane().getChildren().add(createButtonToCreate());
+
+
+         Text text_name = new Text();
+         text_name.setText("NAME");
+         text_name.setFont(Font.loadFont(new FileInputStream(new File("resource/kenvector_future.ttf")),15) );
+         text_name.setX(100);
+         text_name.setY(170);
+         CreateSubScene.getPane().getChildren().add(text_name);
+    }
+
+
+    private void create_JoinSubscene() throws FileNotFoundException
+    {
+        JoinSubScene = new GameSubScene();
+        mainPane.getChildren().add(JoinSubScene);
+
+         InfoLabel chooseShipLabel1 = new InfoLabel("START YOUR GAME");
+         chooseShipLabel1.setLayoutX(70);
+         chooseShipLabel1.setLayoutY(25);
+         JoinSubScene.getPane().getChildren().add(chooseShipLabel1);
+
+         Text text_name = new Text();
+         text_name.setText("NAME");
+         text_name.setFont(Font.loadFont(new FileInputStream(new File("resource/kenvector_future.ttf")),15) );
+         text_name.setX(100);
+         text_name.setY(170);
+         JoinSubScene.getPane().getChildren().add(text_name);
+
+
+         Text text_pass = new Text();
+         text_pass.setText("PASS");
+         text_pass.setFont(Font.loadFont(new FileInputStream(new File("resource/kenvector_future.ttf")),15) );
+         text_pass.setX(100);
+         text_pass.setY(220);
+         JoinSubScene.getPane().getChildren().add(text_pass);
+
+
+         EnterName_join.setLayoutX(180);
+         EnterName_join.setLayoutY(150);
+         Enterpass_join.setLayoutX(180);
+         Enterpass_join.setLayoutY(200);
+         JoinSubScene.getPane().getChildren().add(EnterName_join);
+         JoinSubScene.getPane().getChildren().add(Enterpass_join);
+
+
+         JoinSubScene.getPane().getChildren().add(createButtonToJoin());
+    }
+
+    // private void createShipChooserSubScene()
+    // {
+    //     startSubScene = new GameSubScene();
+    //     mainPane.getChildren().add(startSubScene);
+
+    //      InfoLabel chooseShipLabel1 = new InfoLabel("START YOUR GAME");
+    //      chooseShipLabel1.setLayoutX(70);
+    //      chooseShipLabel1.setLayoutY(25);
+    //      startSubScene.getPane().getChildren().add(chooseShipLabel1);
+    //     //startSubScene.getPane().getChildren().add(createShipsToChoose());
+    //      startSubScene.getPane().getChildren().add(createButtonToCreate());
+    //      startSubScene.getPane().getChildren().add(createButtonToJoin());
+
+
+         
+    //      EnterName.setLayoutX(180);
+    //      EnterName.setLayoutY(150);
+    //      startSubScene.getPane().getChildren().add(EnterName);
+    // }
+
+    // private HBox createShipsToChoose()
+    // {
+    //     HBox box = new HBox();
+    //     box.setSpacing(20);
+    //     shipsList = new ArrayList<>();
+    //     for(SHIP ship : SHIP.values())
+    //     {
+    //         ShipPicker shipToPick = new ShipPicker(ship);
+    //         shipsList.add(shipToPick);
+    //         box.getChildren().add(shipToPick);
+    //         shipToPick.setOnMouseClicked((event) -> 
+    //         {
+    //             for(ShipPicker ship2 : shipsList)
+    //             {
+    //                 ship2.setIsCircleChoosen(false);
+    //             }
+    //             shipToPick.setIsCircleChoosen(true);
+    //             choosenShip = shipToPick.getShip();
+    //         });
+           
+    //     }
+    //     box.setLayoutX(300-(118*2));
+    //     box.setLayoutY(100);
+    //     return box;
+    // }
+
+    private SpaceRunnerButton createButtonToCreate()
+    {
+        SpaceRunnerButton CreateButton = new SpaceRunnerButton("CREATE",49,190);
+        CreateButton.setLayoutX(170); //350
+        CreateButton.setLayoutY(370);
+
+        
+
+        CreateButton.setOnAction((event) -> 
+        {
+            String name = EnterName_create.getText();
+            if(name.equals(""))
+            {   
+            }
+            else
+            {
+                System.out.println(name);
+                LobbyViewManger lobbyviewManager = new LobbyViewManger();
+                lobbyviewManager.create(mainStage);
+            }
+        });
+        return CreateButton;
+    }
+
+    private SpaceRunnerButton createButtonToJoin()
+    {
+        SpaceRunnerButton JoinButton = new SpaceRunnerButton("JOIN",49,190);
+        JoinButton.setLayoutX(170); //350
+        JoinButton.setLayoutY(370);
+
+        
+
+        JoinButton.setOnAction((event) -> 
+        {
+            String name = EnterName_join.getText();
+            String pass = Enterpass_join.getText();
+            if(name.equals("") && pass.equals("") )
+            {  
+
+            }
+            else
+            {
+                System.out.println(name);
+                System.out.println(pass);
+                LobbyViewManger lobbyviewManager = new LobbyViewManger();
+                lobbyviewManager.create(mainStage);
+            }
+        });
+        return JoinButton;
+    }
+
+
+
 
     public Stage getMainStage() {
         return mainStage;
@@ -64,7 +291,8 @@ public class ViewManger {
 
     private void createButtons()
     {
-        createPLAYBUTTON();
+        createCREATEBUTTON();
+        createJOINBUTTON();
         createHelpButton();
         createExitButton();
     }
@@ -98,25 +326,36 @@ public class ViewManger {
         return button;
     }
 
-    private void createPLAYBUTTON()
+    private void createCREATEBUTTON()
     {
-        createModelButton("resource/PLAYBUTTON.png",520,510).setOnMouseClicked((event) -> 
+        createModelButton("resource/CREATEBUTTON.png",880,700).setOnMouseClicked((event) -> 
         {
-            mainStage.close();
+            showSubScene(CreateSubScene);
+        });
+    }
+
+    private void createJOINBUTTON()
+    {
+        createModelButton("resource/JOINBUTTON.png",880,780).setOnMouseClicked((event) -> 
+        {
+            
+            showSubScene(JoinSubScene);
+           
         });
     }
    
     private void createHelpButton()
     {
-        createModelButton("resource/HELPBUTTON.png",520,590).setOnMouseClicked((event) -> 
+        createModelButton("resource/HELPBUTTON.png",850,860).setOnMouseClicked((event) -> 
         {
-          
+           HowtoplayViewManger howtoplayviewManager = new HowtoplayViewManger();
+           howtoplayviewManager.create(mainStage);
         });
     }
 
     private void createExitButton()
     {
-        createModelButton("resource/EXITBUTTON.png",520,670).setOnMouseClicked((event) -> 
+        createModelButton("resource/EXITBUTTON.png",850,940).setOnMouseClicked((event) -> 
         {
            mainStage.close();
         });
@@ -127,17 +366,17 @@ public class ViewManger {
         gridPane1 = new GridPane();
         gridPane2 = new GridPane();
 
-        for(int i = 0 ;i<25;i++)
+        for(int i = 0 ;i<100;i++)
         {
             ImageView backgroImageView1 = new ImageView("resource/BlueRenew.jpg");
             ImageView backgroImageView2 = new ImageView("resource/BlueRenew.jpg");
-            GridPane.setConstraints(backgroImageView1, i%5,i/5);
-            GridPane.setConstraints(backgroImageView2, i%5,i/5);
+            GridPane.setConstraints(backgroImageView1, i%10,i/10);
+            GridPane.setConstraints(backgroImageView2, i%10,i/10);
             gridPane1.getChildren().add(backgroImageView1);
             gridPane2.getChildren().add(backgroImageView2);
         }
 
-        gridPane2.setLayoutY(-1280);
+        gridPane2.setLayoutY(-1920);
 
         mainPane.getChildren().addAll(gridPane1,gridPane2);
 
@@ -145,7 +384,7 @@ public class ViewManger {
     
     private void createLogo()
     {
-        ImageView logo = new ImageView("resource/logoCatTNT.png");
+        ImageView logo = new ImageView("resource/logoCatTNT02.png");
         logo.setLayoutX(-10);
         logo.setLayoutY(-20);
 
@@ -167,8 +406,8 @@ public class ViewManger {
 
     private void createNameGame()
     {
-        ImageView logo = new ImageView("resource/Level.png");
-        logo.setLayoutX(470);
+        ImageView logo = new ImageView("resource/Level2.png");
+        logo.setLayoutX(750);
         logo.setLayoutY(0);
 
 
@@ -182,7 +421,6 @@ public class ViewManger {
         {
            logo.setEffect(null);
         });
-
         mainPane.getChildren().add(logo);
     }
 
@@ -191,14 +429,14 @@ public class ViewManger {
         gridPane1.setLayoutY(gridPane1.getLayoutY()+0.5);
         gridPane2.setLayoutY(gridPane2.getLayoutY()+0.5);
 
-        if(gridPane1.getLayoutY() >= 1280)
+        if(gridPane1.getLayoutY() >= 1920)
         {
-            gridPane1.setLayoutY(-1280);
+            gridPane1.setLayoutY(-1920);
         }
 
-        if(gridPane2.getLayoutY()>=1280)
+        if(gridPane2.getLayoutY()>=1920)
         {
-            gridPane2.setLayoutY(-1280);
+            gridPane2.setLayoutY(-1920);
         }
     }
 
@@ -230,6 +468,9 @@ public class ViewManger {
         });
     }
 
-  
+   
+        
+    
+
 
 }

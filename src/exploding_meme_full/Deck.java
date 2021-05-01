@@ -12,11 +12,21 @@ public class Deck {
         this.deckName = deckName;
     }
     
-    public final void refill() {
-        for (int i = 0; i < 11; i++) {
-            for (int j = 0; j < 4; j++) {
-                cards.add(new Card(i));
+    public final boolean refill(int playerValue) {
+        try {
+            for (int i = 0; i < 11; i++) {
+                for (int j = 0; j < 4; j++) {
+                    cards.add(new Card(i));
+                }
             }
+            cards.add(new Card(11));
+            for (int i = 0; i < playerValue - 1; i++) {
+                cards.add(new Card(12));
+            }
+        } catch (Exception e) {
+            return false;
+        } finally {
+            return true;
         }
     }
     
@@ -63,6 +73,16 @@ public class Deck {
         }   
     }
     
+    public boolean addCard(Card newCard){
+        try {
+            this.cards.add(newCard);
+        } catch (Exception e) {
+            return false;
+        } finally {
+            return true;
+        }   
+    }
+    
     public int getValueOfCard(){
         return this.cards.size();
     }
@@ -71,5 +91,13 @@ public class Deck {
         return deckName;
     }
     
-    
+    public boolean checkHaveDefuse(){
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getCardId() == 11) {
+                cards.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
 }

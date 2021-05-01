@@ -1,34 +1,48 @@
 package exploding_meme_full;
 
 import java.util.ArrayList;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
-public class Game extends Application{
-    public static boolean isHead;
-    boolean isStart;
-    boolean isJoin;
-    boolean isCreate ;
-    boolean isInGame;
-    boolean isEndGame;
-    boolean isRoomFull;
-    boolean isInLobby;
-    boolean isMyTurn;
-    boolean isAttack;
+public class Game{
+    public static boolean isStart;
+    public static boolean isEndGame;
+    public static boolean isMyTurn;
+    public static boolean isAttack;
     
-    Deck deck;
-    Deck dropedDeck;
+    public static Deck deck;
+    public static Deck dropedDeck;
     
-    ArrayList<Player> players;
-    ArrayList<String> turnList;
+    public static ArrayList<Player> players;
+    public static ArrayList<String> turnList;
     
-    String playerName;
-    String gameRoomName;
+    public static String playerName;
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Game(String playerName, ArrayList<String> playerNames) {
+        Game.playerName = playerName;
+        for (int i = 0; i < playerNames.size(); i++) {
+            Game.players.add(new Player(playerNames.get(i)));
+        }
+        for (int i = 0; i < playerNames.size(); i++) {
+            Game.players.get(i).getHand().addCard(new Card(11));
+        }
+        Game.deck = new Deck("deck");
+        Game.dropedDeck = new Deck("dropedDeck");
+        
+        if(Lobby.isHead) {
+            Game.deck.refill(playerNames.size());
+            for (int i = 0; i < playerNames.size(); i++) {
+                for (int j = 0; j < 4; j++) {
+                    Card newCard = Game.deck.drawCard();
+                    Game.players.get(i).getHand().addCard(newCard);
+                }
+            }
+            //public mqtt
+        }
+        
+        Game.isStart = true;
+        Game.isEndGame = false;
+        Game.isMyTurn = false;
+        Game.isAttack = false;
     }
-
+    
     
 }
