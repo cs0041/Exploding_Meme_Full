@@ -20,6 +20,7 @@ public class Game{
         Game.playerName = playerName;
         for (int i = 0; i < playerNames.size(); i++) {
             Game.players.add(new Player(playerNames.get(i)));
+            Game.turnList.add(playerNames.get(i));
         }
         for (int i = 0; i < playerNames.size(); i++) {
             Game.players.get(i).getHand().addCard(new Card(11));

@@ -23,6 +23,8 @@ public class useCard {
     private static void effect(int id){
         switch(id){
             case 0:
+                //who
+                Game.turnList.add("Name");
                 break;
             case 1:
                 break;

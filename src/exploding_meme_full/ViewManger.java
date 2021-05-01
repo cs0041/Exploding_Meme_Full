@@ -62,6 +62,8 @@ public class ViewManger {
     private AnimationTimer TimerLoop;
     private GridPane gridPane1;
     private GridPane gridPane2;
+    
+    Lobby lobby;
 
     
     public ViewManger() throws FileNotFoundException 

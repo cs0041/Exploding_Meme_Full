@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * @author Smart
  */
 public class Lobby {
-    public String lobbyName;
     public String playerName;
     public String code;
     public static ArrayList<String> playerNames;
@@ -24,8 +23,8 @@ public class Lobby {
     public static boolean isCreate ;
     public static boolean isInGame;
 
-    public Lobby(String lobbyName) {
-        this.lobbyName = lobbyName;
+    public Lobby(String playerName) {
+        this.playerName = playerName;
     }
     
     public void startGame(){
