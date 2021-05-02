@@ -7,6 +7,7 @@ package exploding_meme_full;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.UUID;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.json.simple.JSONObject;
@@ -35,7 +36,7 @@ public class Lobby implements MqttCallback{
     private MqttClient client;
     private final int qos = 2;
     private final String broker = "tcp://mqtt.gmtech.co.th:1883";
-    private final String clientId = "CallBack";
+    private String clientId ;
     private final String USERNAME = "OOP_Exploding_Meme";
     private final String PASSWORD = "ZjFjfNv.VZ-bKh2";
     
@@ -43,6 +44,7 @@ public class Lobby implements MqttCallback{
     public boolean isSuccessCreateRoom;
 
     public Lobby(String playerName) throws MqttException {
+        clientId = "EXPM" + UUID.randomUUID().toString();
         isHead = true;
         this.playerName = playerName;
         this.createGameRoom();
@@ -57,6 +59,7 @@ public class Lobby implements MqttCallback{
     }
     
     public Lobby(String playerName, String code) throws MqttException {
+        clientId = "EXPM" + UUID.randomUUID().toString();
         this.playerName = playerName;
         isHead = false;
         this.connectServer(code);
@@ -122,20 +125,24 @@ public class Lobby implements MqttCallback{
                         this.isSuccessCreateRoom = false;
                     }
                     if(!json.get("name").equals("") && !json.get("name").equals(this.playerName) && this.playerInLobby > 0){
-                        this.playerInLobby += 1;
-                        this.playerNames.add(json.get("name").toString());
-                        System.out.println(this.playerNames);
-                        JSONArray playerNamesArray = new JSONArray();
-                        for(int i=0;i<this.playerInLobby;i++){
-                            JSONObject replyMsg = new JSONObject();
-                            replyMsg.put("name", this.playerNames.get(i));
-                            playerNamesArray.add(replyMsg);
+                        for(int k=0;k<this.playerInLobby;k++){
+                            if(!json.get("name").equals(this.playerNames.get(k))){
+                                this.playerInLobby += 1;
+                                this.playerNames.add(json.get("name").toString());
+                                System.out.println(this.playerNames);
+                                JSONArray playerNamesArray = new JSONArray();
+                                for(int i=0;i<this.playerInLobby;i++){
+                                    JSONObject replyMsg = new JSONObject();
+                                    replyMsg.put("name", this.playerNames.get(i));
+                                    playerNamesArray.add(replyMsg);
+                                }
+                                System.out.println(playerNamesArray.toJSONString());
+                                this.sendMessage(playerNamesArray.toJSONString());
+                            }
                         }
-                        System.out.println(playerNamesArray.toJSONString());
-                        this.sendMessage(playerNamesArray.toJSONString());
                     }
                 }
-                else{
+                if(!isHead){
                     for(int i=0;i<this.playerInLobby;i++){
                         if(!json.get("name").equals("") && !json.get("name").equals(this.playerName) && !json.get("name").equals(this.playerNames.get(i))){
                             this.playerInLobby += 1;
