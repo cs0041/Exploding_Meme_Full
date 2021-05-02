@@ -31,6 +31,9 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.eclipse.paho.client.mqttv3.MqttException;
 
 
 
@@ -250,8 +253,13 @@ public class ViewManger {
             else
             {
                 System.out.println(name);
-                lobby = new Lobby(name);
-                lobby.startGame();
+                try {
+                    lobby = new Lobby(name);
+                } catch (MqttException ex) {
+                    Logger.getLogger(ViewManger.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Lobby.isHead = true;
+                //lobby.startGame();
                 LobbyViewManger lobbyviewManager = new LobbyViewManger();
                 lobbyviewManager.create(mainStage);
             }
@@ -279,7 +287,11 @@ public class ViewManger {
             {
                 System.out.println(name);
                 System.out.println(code);
-                lobby = new Lobby(name, code);
+                try {
+                    lobby = new Lobby(name, code);
+                } catch (MqttException ex) {
+                    Logger.getLogger(ViewManger.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 LobbyViewManger lobbyviewManager = new LobbyViewManger();
                 lobbyviewManager.create(mainStage);
             }
