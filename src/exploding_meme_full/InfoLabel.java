@@ -16,8 +16,8 @@ import javafx.scene.text.Font;
 
 public class InfoLabel extends Label
 {
-    public final static String FONT_PATH = "resource/kenvector_future.ttf";
-    public final static String BACKGROUND_IMAGE = "resource/yellow_button13.png";
+    public final static String FONT_PATH = "file:src/exploding_meme_full/resource/kenvector_future.ttf";
+    public final static String BACKGROUND_IMAGE = "file:src/exploding_meme_full/resource/yellow_button13.png";
 
 //Label setText("")
     public InfoLabel(String text)
@@ -38,8 +38,8 @@ public class InfoLabel extends Label
     private void setLabelFont()
     {
         try {
-        setFont(Font.loadFont(new FileInputStream(new File(FONT_PATH)),15) );
-        } catch (FileNotFoundException e) {
+        setFont(Font.loadFont(FONT_PATH,15) );
+        } catch (Exception e) {
             setFont(Font.font("Verdana",15));
         }
     }

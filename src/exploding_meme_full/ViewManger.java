@@ -143,7 +143,7 @@ public class ViewManger {
 
          Text text_name = new Text();
          text_name.setText("NAME");
-         text_name.setFont(Font.loadFont(new FileInputStream(new File("resource/kenvector_future.ttf")),15) );
+         text_name.setFont(Font.loadFont("file:src/exploding_meme_full/resource/kenvector_future.ttf",15) );
          text_name.setX(100);
          text_name.setY(170);
          CreateSubScene.getPane().getChildren().add(text_name);
@@ -162,7 +162,7 @@ public class ViewManger {
 
          Text text_name = new Text();
          text_name.setText("NAME");
-         text_name.setFont(Font.loadFont(new FileInputStream(new File("resource/kenvector_future.ttf")),15) );
+         text_name.setFont(Font.loadFont("file:src/exploding_meme_full/resource/kenvector_future.ttf",15) );
          text_name.setX(100);
          text_name.setY(170);
          JoinSubScene.getPane().getChildren().add(text_name);
@@ -170,7 +170,7 @@ public class ViewManger {
 
          Text text_pass = new Text();
          text_pass.setText("PASS");
-         text_pass.setFont(Font.loadFont(new FileInputStream(new File("resource/kenvector_future.ttf")),15) );
+         text_pass.setFont(Font.loadFont("file:src/exploding_meme_full/resource/kenvector_future.ttf",15) );
          text_pass.setX(100);
          text_pass.setY(220);
          JoinSubScene.getPane().getChildren().add(text_pass);
@@ -330,7 +330,7 @@ public class ViewManger {
 
     private void createCREATEBUTTON()
     {
-        createModelButton("resource/CREATEBUTTON.png",880,700).setOnMouseClicked((event) -> 
+        createModelButton("exploding_meme_full/resource/CREATEBUTTON.png",880,700).setOnMouseClicked((event) -> 
         {
             showSubScene(CreateSubScene);
         });
@@ -338,7 +338,7 @@ public class ViewManger {
 
     private void createJOINBUTTON()
     {
-        createModelButton("resource/JOINBUTTON.png",880,780).setOnMouseClicked((event) -> 
+        createModelButton("exploding_meme_full/resource/JOINBUTTON.png",880,780).setOnMouseClicked((event) -> 
         {
             
             showSubScene(JoinSubScene);
@@ -348,7 +348,7 @@ public class ViewManger {
    
     private void createHelpButton()
     {
-        createModelButton("resource/HELPBUTTON.png",850,860).setOnMouseClicked((event) -> 
+        createModelButton("exploding_meme_full/resource/HELPBUTTON.png",850,860).setOnMouseClicked((event) -> 
         {
            HowtoplayViewManger howtoplayviewManager = new HowtoplayViewManger();
            howtoplayviewManager.create(mainStage);
@@ -357,7 +357,7 @@ public class ViewManger {
 
     private void createExitButton()
     {
-        createModelButton("resource/EXITBUTTON.png",850,940).setOnMouseClicked((event) -> 
+        createModelButton("exploding_meme_full/resource/EXITBUTTON.png",850,940).setOnMouseClicked((event) -> 
         {
            mainStage.close();
         });
@@ -370,8 +370,8 @@ public class ViewManger {
 
         for(int i = 0 ;i<100;i++)
         {
-            ImageView backgroImageView1 = new ImageView("resource/BlueRenew.jpg");
-            ImageView backgroImageView2 = new ImageView("resource/BlueRenew.jpg");
+            ImageView backgroImageView1 = new ImageView("exploding_meme_full/resource/BlueRenew.jpg");
+            ImageView backgroImageView2 = new ImageView("exploding_meme_full/resource/BlueRenew.jpg");
             GridPane.setConstraints(backgroImageView1, i%10,i/10);
             GridPane.setConstraints(backgroImageView2, i%10,i/10);
             gridPane1.getChildren().add(backgroImageView1);
@@ -386,7 +386,7 @@ public class ViewManger {
     
     private void createLogo()
     {
-        ImageView logo = new ImageView("resource/logoCatTNT02.png");
+        ImageView logo = new ImageView("exploding_meme_full/resource/logoCatTNT02.png");
         logo.setLayoutX(-10);
         logo.setLayoutY(-20);
 
@@ -408,7 +408,7 @@ public class ViewManger {
 
     private void createNameGame()
     {
-        ImageView logo = new ImageView("resource/Level2.png");
+        ImageView logo = new ImageView("exploding_meme_full/resource/Level2.png");
         logo.setLayoutX(750);
         logo.setLayoutY(0);
 

@@ -13,8 +13,8 @@ import javafx.util.Duration;
 
 public class GameSubScene extends SubScene{
 
-    private final String FONT_PATH = "resource/kenvector_future.ttf";
-    private final String BACKGROUND_IMAGE = "resource/yellow_panel.png";
+    private final String FONT_PATH = "file:src/exploding_meme_full/resource/kenvector_future.ttf";
+    private final String BACKGROUND_IMAGE = "file:src/exploding_meme_full/resource/yellow_panel.png";
     
     private  boolean isHidden = true;
     
