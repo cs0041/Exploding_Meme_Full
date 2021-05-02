@@ -15,6 +15,10 @@ public class HowtoplayViewManger {
     private Scene gameScene;
     private Stage gameStage;
 
+    
+    
+    private int i;
+    
     private static final int GAME_WIDTH =  1920 ;
     private static final int GAME_HIGHT =1080;
 
