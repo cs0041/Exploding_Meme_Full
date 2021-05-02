@@ -63,7 +63,7 @@ public class Card extends Parent{
     }
     
     private Image randomImage(String cardName) {
-        String output = cardName + String.valueOf((int)(Math.random() * 4));
-        return new Image(Card.class.getResourceAsStream("pictures/".concat(output.toLowerCase()).concat(".png")),32, 32, true, true);
+        String output = cardName + String.valueOf(1 + (int)(Math.random() * 4));
+        return new Image("file:src/exploding_meme_full/resource/".concat(output.toLowerCase()).concat(".png"),32, 32, true, true);
     }
 }

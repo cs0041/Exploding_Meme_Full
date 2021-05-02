@@ -11,8 +11,8 @@ public class Game{
     public static Deck deck;
     public static Deck dropedDeck;
     
-    public static ArrayList<Player> players;
-    public static ArrayList<String> turnList;
+    public static ArrayList<Player> players = new ArrayList<Player>();
+    public static ArrayList<String> turnList = new ArrayList<String>();
     
     public static String playerName;
 
