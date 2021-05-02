@@ -17,7 +17,7 @@ public class HowtoplayViewManger {
 
     
     
-    private int i,x;
+    private int i,x,y,z;
     
     private static final int GAME_WIDTH =  1920 ;
     private static final int GAME_HIGHT =1080;
