@@ -251,6 +251,7 @@ public class ViewManger {
             {
                 System.out.println(name);
                 lobby = new Lobby(name);
+                Lobby.isHead = true;
                 lobby.startGame();
                 LobbyViewManger lobbyviewManager = new LobbyViewManger();
                 lobbyviewManager.create(mainStage);

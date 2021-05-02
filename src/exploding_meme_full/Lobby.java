@@ -30,8 +30,8 @@ public class Lobby {
     
     public Lobby(String playerName, String code) {
         this.playerName = playerName;
-        this.playerNames.add(playerName);
         this.code = code;
+        //public
     }
     
     public void startGame(){
