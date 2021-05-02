@@ -258,7 +258,6 @@ public class ViewManger {
                 } catch (MqttException ex) {
                     Logger.getLogger(ViewManger.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                Lobby.isHead = true;
                 //lobby.startGame();
                 LobbyViewManger lobbyviewManager = new LobbyViewManger();
                 lobbyviewManager.create(mainStage);

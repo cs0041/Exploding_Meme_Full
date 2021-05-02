@@ -43,6 +43,7 @@ public class Lobby implements MqttCallback{
     public boolean isSuccessCreateRoom;
 
     public Lobby(String playerName) throws MqttException {
+        isHead = true;
         this.playerName = playerName;
         this.createGameRoom();
         this.connectServer(this.gameRoom);
@@ -52,11 +53,14 @@ public class Lobby implements MqttCallback{
         msgArray.add(msg);
         sendMessage(msgArray.toJSONString());
         
+        
     }
     
     public Lobby(String playerName, String code) throws MqttException {
         this.playerName = playerName;
-        this.code = code;
+        isHead = false;
+        this.connectServer(code);
+        this.joinGame();
     }
     
     public void startGame(){
@@ -156,15 +160,17 @@ public class Lobby implements MqttCallback{
         }
         this.topic = "EXPM/" + gameRoom ;
         this.gameRoom = gameRoom;
-        System.out.println("game room : "+gameRoom);  
+        System.out.println("game room : "+gameRoom); 
+        
         return true;
     }
     
-    public boolean joinGame(String gameRoom) throws MqttException{ 
+    public boolean joinGame() throws MqttException{ 
         JSONObject msg = new JSONObject();
-        msg.put("playerName", this.playerName);
-        String mmsg = msg.toJSONString();
-        sendMessage(mmsg);
+        JSONArray msgArray = new JSONArray();
+        msg.put("name", this.playerName);
+        msgArray.add(msg);
+        sendMessage(msgArray.toJSONString());
         return true;
     }
     
