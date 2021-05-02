@@ -243,13 +243,14 @@ public class ViewManger {
 
         CreateButton.setOnAction((event) -> 
         {
-            String name = EnterName_create.getText();
-            if(name.equals(""))
+            lobby.playerName = EnterName_create.getText();
+            if(lobby.playerName.equals(""))
             {   
             }
             else
             {
-                System.out.println(name);
+                System.out.println(lobby.playerName);
+                lobby.startGame();
                 LobbyViewManger lobbyviewManager = new LobbyViewManger();
                 lobbyviewManager.create(mainStage);
             }
@@ -267,16 +268,16 @@ public class ViewManger {
 
         JoinButton.setOnAction((event) -> 
         {
-            String name = EnterName_join.getText();
-            String pass = Enterpass_join.getText();
-            if(name.equals("") && pass.equals("") )
+            lobby.playerName = EnterName_join.getText();
+            lobby.code = Enterpass_join.getText();
+            if(lobby.playerName.equals("") && lobby.code.equals("") )
             {  
 
             }
             else
             {
-                System.out.println(name);
-                System.out.println(pass);
+                System.out.println(lobby.playerName);
+                System.out.println(lobby.code);
                 LobbyViewManger lobbyviewManager = new LobbyViewManger();
                 lobbyviewManager.create(mainStage);
             }
